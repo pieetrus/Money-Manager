@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Money Manager</string>
+    <string name="login">Logowanie</string>
+    <string name="loginBtn">Zaloguj się</string>
+    <string name="passwordHint">Hasło</string>
+    <string name="emailHint">Email</string>
+    <string name="forgetPassword">Zapomniałeś hasła?</string>
+    <string name="dontHaveAnAccount">Nie masz konta?</string>
+    <string name="register">Rejestracja</string>
+    <string name="alreadyHaveAnAccount">Masz już konto?</string>
+    <string name="registerBtn">Zarejestruj się</string>
+
 </resources>

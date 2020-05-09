@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background_color"
     android:gravity="center"
     tools:context=".MainActivity">
 
@@ -21,46 +22,72 @@
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Login"
+              android:gravity="center"
+              android:text="@string/login"
               android:textAppearance="?android:textAppearanceLarge"
-              android:gravity="center"/>
+              android:padding="20dp"
+              android:fontFamily="sans-serif"
+              android:textSize="30sp"/>
 
           <EditText
+              android:id="@+id/email_login"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/edittext_background"
+              android:padding="15dp"
+              android:textColor="@android:color/black"
+              android:textColorHint="@android:color/black"
+              android:layout_margin="10dp"
+              android:hint="@string/emailHint"
+              android:inputType="textEmailAddress"
+              android:textSize="20sp"
+              android:autofillHints="" />
+
+          <EditText
+              android:id="@+id/password_login"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_margin="10dp"
-              android:hint="Email"
-              android:id="@+id/email_login"/>
-
-          <EditText
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="10dp"
-              android:hint="Password"
-              android:id="@+id/password_login"/>
+              android:background="@drawable/edittext_background"
+              android:padding="15dp"
+              android:textColor="@android:color/black"
+              android:textColorHint="@android:color/black"
+              android:hint="@string/passwordHint"
+              android:inputType="textPassword"
+              android:textSize="20sp"
+              android:autofillHints="" />
 
           <Button
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_margin="10dp"
-              android:text="Log In"
-              android:textAppearance="?android:textAppearanceMedium"/>
+              android:text="@string/loginBtn"
+              android:background="@drawable/button_background"
+              android:padding="15dp"
+              android:textColor="@android:color/black"
+              android:textColorHint="@android:color/black"
+              android:textAppearance="?android:textAppearanceMedium"
+              android:textSize="25sp"/>
 
           <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center"
               android:id="@+id/forget_password"
-              android:text="Forget Password?"
-              android:padding="5dp"/>
-
-          <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center"
+              android:padding="20dp"
+              android:text="@string/forgetPassword"
+              android:textSize="22sp"
+              android:layout_marginTop="20dp"/>
+
+          <TextView
               android:id="@+id/signup_reg"
-              android:text="Don't have an account?"
-              android:padding="5dp"/>
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:padding="20dp"
+              android:text="@string/dontHaveAnAccount"
+              android:textSize="22sp"
+              android:layout_marginTop="5dp"/>
 
       </LinearLayout>
 
