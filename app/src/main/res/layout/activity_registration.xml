@@ -29,7 +29,7 @@
                 android:textSize="30sp"/>
 
             <EditText
-                android:id="@+id/email_reg"
+                android:id="@+id/et_email_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_background"
@@ -43,7 +43,7 @@
                 android:autofillHints="" />
 
             <EditText
-                android:id="@+id/password_reg"
+                android:id="@+id/et_password_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -57,19 +57,20 @@
                 android:autofillHints="" />
 
             <Button
+                android:id="@+id/btn_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="@string/registerBtn"
                 android:background="@drawable/button_background"
                 android:padding="15dp"
+                android:text="@string/registerBtn"
+                android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/black"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textSize="25sp"/>
+                android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/signup_reg"
+                android:id="@+id/tv_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
