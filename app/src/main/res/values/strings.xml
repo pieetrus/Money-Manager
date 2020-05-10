@@ -9,5 +9,10 @@
     <string name="register">Rejestracja</string>
     <string name="alreadyHaveAnAccount">Masz już konto?</string>
     <string name="registerBtn">Zarejestruj się</string>
+    <string name="dashboard">Tablica</string>
+    <string name="income">Przychód</string>
+    <string name="expense">Wydatki</string>
+    <string name="navigation_drawer_open">Otwórz pasek nawigacji</string>
+    <string name="navigation_drawer_close">Zamknij pasek nawigacji</string>
 
 </resources>

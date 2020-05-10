@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
+        // jeśli użytkownik jest zalogowany to przekieruj od razu do strony domowej
+        if (mAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        }
+
         progressDialog = new ProgressDialog(this);
 
         loginDetails();
