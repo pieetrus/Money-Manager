@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvSignupHere;
     private ProgressDialog progressDialog;
     // Firebase
-    private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
 
 
 
@@ -36,29 +36,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mAuth = FirebaseAuth.getInstance();
-
-        // jeśli użytkownik jest zalogowany to przekieruj od razu do strony domowej
-        if (mAuth.getCurrentUser() != null){
+        initialize();
+        // if user is already logged in - skip login activity
+        if (firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         }
 
-        progressDialog = new ProgressDialog(this);
-
-        loginDetails();
-
+        loginHandler();
     }
 
 
-    private void loginDetails(){
-
-        etEmail = findViewById(R.id.et_email_login);
-        etPassword = findViewById(R.id.et_password_login);
-        btnLogin = findViewById(R.id.btn_login);
-        tvForgetPassword = findViewById(R.id.tv_forget_password);
-        tvSignupHere = findViewById(R.id.tv_signup);
-
+    private void loginHandler(){
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,14 +64,14 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 progressDialog.setMessage("Przetwarzanie...");
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             progressDialog.dismiss();
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                             Toast.makeText(getApplicationContext(), "Pomyślnie zalogowano!", Toast.LENGTH_SHORT).show();
-                        } else{
+                        } else {
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Coś poszło nie tak...", Toast.LENGTH_SHORT).show();
                         }
@@ -110,4 +98,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    // Connect all variables to layout
+    private void initialize(){
+        etEmail = findViewById(R.id.et_email_login);
+        etPassword = findViewById(R.id.et_password_login);
+        btnLogin = findViewById(R.id.btn_login);
+        tvForgetPassword = findViewById(R.id.tv_forget_password);
+        tvSignupHere = findViewById(R.id.tv_signup);
+        progressDialog = new ProgressDialog(this);
+        // Firebase initialization
+        firebaseAuth = FirebaseAuth.getInstance();
+
+    }
+
 }

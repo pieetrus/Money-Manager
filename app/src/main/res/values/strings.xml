@@ -15,4 +15,7 @@
     <string name="navigation_drawer_open">Otwórz pasek nawigacji</string>
     <string name="navigation_drawer_close">Zamknij pasek nawigacji</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

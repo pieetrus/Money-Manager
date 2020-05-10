@@ -26,36 +26,21 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPass;
     private Button btnReg;
-    private TextView etSignin;
+    private TextView etSignIn;
     private ProgressDialog progressDialog;
-
-
     // Firebase
-    private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
-        progressDialog = new ProgressDialog(this);
-        mAuth = FirebaseAuth.getInstance();
-
-        registration();
-
+        initialize();
+        registrationHandler();
     }
 
-    private void registration() {
-
-        etEmail = findViewById(R.id.et_email_reg);
-        etPass = findViewById(R.id.et_password_reg);
-        btnReg = findViewById(R.id.btn_reg);
-        etSignin = findViewById(R.id.tv_login);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT);
-
-
+    private void registrationHandler() {
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,10 +57,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
                 progressDialog.setMessage("Przetwarzanie...");
 
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                // Create user and add to database
+                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         if (task.isSuccessful()){
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Zarejestrowano pomyślnie!", Toast.LENGTH_SHORT).show();
@@ -83,22 +68,31 @@ public class RegistrationActivity extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         } else {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Coś poszło nie tak :/ Skontaktuj się z obsługą.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Coś poszło nie tak :/", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
-
             }
         });
 
-
-        etSignin.setOnClickListener(new View.OnClickListener() {
+        // Already signIn text view handler
+        etSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
+    }
+
+    // Connect variables to layout
+    private void initialize(){
+        etEmail = findViewById(R.id.et_email_reg);
+        etPass = findViewById(R.id.et_password_reg);
+        btnReg = findViewById(R.id.btn_reg);
+        etSignIn = findViewById(R.id.tv_login);
+
+        progressDialog = new ProgressDialog(this);
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
 
