@@ -78,37 +78,37 @@ public class DashboardFragment extends Fragment {
         btn_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isOpen){
-                    btn_income.startAnimation(fadeClose);
-                    btn_expense.startAnimation(fadeClose);
-                    btn_income.setClickable(false);
-                    btn_expense.setClickable(false);
-
-                    tv_income.startAnimation(fadeClose);
-                    tv_expense.startAnimation(fadeClose);
-                    tv_income.setClickable(false);
-                    tv_expense.setClickable(false);
-                    isOpen = false;
-                } else{
-                    btn_income.startAnimation(fadeOpen);
-                    btn_expense.startAnimation(fadeOpen);
-                    btn_income.setClickable(true);
-                    btn_expense.setClickable(true);
-
-                    tv_income.startAnimation(fadeOpen);
-                    tv_expense.startAnimation(fadeOpen);
-                    tv_income.setClickable(true);
-                    tv_expense.setClickable(true);
-                    isOpen = true;
-                }
+                floatingButtonAnimation();
             }
         });
-
-
         return view;
     }
 
+    private void floatingButtonAnimation(){
+        if (isOpen){
+            btn_income.startAnimation(fadeClose);
+            btn_expense.startAnimation(fadeClose);
+            btn_income.setClickable(false);
+            btn_expense.setClickable(false);
 
+            tv_income.startAnimation(fadeClose);
+            tv_expense.startAnimation(fadeClose);
+            tv_income.setClickable(false);
+            tv_expense.setClickable(false);
+            isOpen = false;
+        } else{
+            btn_income.startAnimation(fadeOpen);
+            btn_expense.startAnimation(fadeOpen);
+            btn_income.setClickable(true);
+            btn_expense.setClickable(true);
+
+            tv_income.startAnimation(fadeOpen);
+            tv_expense.startAnimation(fadeOpen);
+            tv_income.setClickable(true);
+            tv_expense.setClickable(true);
+            isOpen = true;
+        }
+    }
 
     private void addData(){
         // fab button income
@@ -117,6 +117,13 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 incomeDataInsert();
+            }
+        });
+
+        btn_expense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expenseDataInsert();
             }
         });
     }
@@ -129,6 +136,7 @@ public class DashboardFragment extends Fragment {
         dialogBuilder.setView(insertDataView);
 
         final AlertDialog dialog = dialogBuilder.create();
+        dialog.setCancelable(false);
 
         Button btnSave = insertDataView.findViewById(R.id.btnSave);
         Button btnCancel = insertDataView.findViewById(R.id.btnCancel);
@@ -168,8 +176,8 @@ public class DashboardFragment extends Fragment {
 
                 Toast.makeText(getActivity(), "Pomyślnie dodano!", Toast.LENGTH_SHORT).show();
 
+                floatingButtonAnimation();
                 dialog.dismiss();
-
             }
         });
 
@@ -177,9 +185,75 @@ public class DashboardFragment extends Fragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                floatingButtonAnimation();
                 dialog.dismiss();
             }
         });
+
+        dialog.show();
+
+    }
+
+    private void expenseDataInsert(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+
+        View insertDataView = inflater.inflate(R.layout.custom_layout_for_insert_data, null);
+        dialogBuilder.setView(insertDataView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+        dialog.setCancelable(false);
+
+        Button btnSave = insertDataView.findViewById(R.id.btnSave);
+        Button btnCancel = insertDataView.findViewById(R.id.btnCancel);
+
+        etAmount = insertDataView.findViewById(R.id.et_amount);
+        etType = insertDataView.findViewById(R.id.et_type);
+        etNote = insertDataView.findViewById(R.id.et_note);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String amount = etAmount.getText().toString().trim();
+                String type = etType.getText().toString().trim();
+                String note = etNote.getText().toString().trim();
+
+
+                if (TextUtils.isEmpty(amount)){
+                    etAmount.setError("Pole jest wymagane");
+                    return;
+                }
+                int amount_int = Integer.parseInt(amount);
+
+                if (TextUtils.isEmpty(type)){
+                    etType.setError("Pole jest wymagane");
+                    return;
+                }
+                if (TextUtils.isEmpty(note)){
+                    etNote.setError("Pole jest wymagane");
+                    return;
+                }
+
+                String id = expenseDatabase.push().getKey();
+                String date = DateFormat.getDateInstance().format(new Date());
+                Data data = new Data(id, amount_int, type, note, date);
+
+                incomeDatabase.child(id).setValue(data);
+
+                Toast.makeText(getActivity(), "Pomyślnie dodano!", Toast.LENGTH_SHORT).show();
+
+                dialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingButtonAnimation();
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
 
 
