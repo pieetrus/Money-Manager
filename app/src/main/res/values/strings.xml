@@ -22,5 +22,7 @@
     <string name="note">Notatka:</string>
     <string name="cancel">Anuluj</string>
     <string name="save">Zapisz</string>
+    <string name="delete">Usuń</string>
+    <string name="update">Zaktualizuj</string>
 
 </resources>
