@@ -8,8 +8,11 @@ Money manager is simple mobile app to manage your incomes and expenses.
 
 ## Features/highlights
 
-- add/remove incomes
-- add/remove expenses
+- create accounts
+- login to account
+- add/remove/update incomes
+- add/remove/update expenses
+
 
 ## Usage example
 ![2](https://github.com/pieetrus/Money-Manager/blob/master/readmefiles/presentation.gif)
