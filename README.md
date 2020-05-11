@@ -1,5 +1,5 @@
 # Money Manager
-> Money manager is simple mobile app to manage your incomes and expenses.
+Money manager is simple mobile app to manage your incomes and expenses.
 ![1](https://github.com/pieetrus/Money-Manager/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
 ## Technologies
@@ -12,7 +12,7 @@
 - add/remove expenses
 
 ## Usage example
-![2](https://github.com/pieetrus/Money-Manager/blob/readmefiles/presentation.gif)
+![2](https://github.com/pieetrus/Money-Manager/blob/master/readmefiles/presentation.gif)
 
 ## Release History
 * 0.1.0
