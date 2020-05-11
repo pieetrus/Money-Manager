@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="5 maja 2020"
+                android:layout_margin="5dp"
                 android:textColor="@color/date_color"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textStyle="bold"
