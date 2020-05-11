@@ -2,11 +2,25 @@ package com.example.moneymanager;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.moneymanager.Model.Data;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -14,15 +28,115 @@ import android.view.ViewGroup;
  */
 public class ExpenseFragment extends Fragment {
 
-    public ExpenseFragment() {
-        // Required empty public constructor
-    }
+    // Firebase database
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference expenseDatabase;
+    private FirebaseUser firebaseUser;
+
+    // Recycler view
+    private RecyclerView recyclerView;
+
+    private TextView tvExpenseTotal;
+
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_expense, container, false);
+        View view = inflater.inflate(R.layout.fragment_expense, container, false);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        String id = firebaseUser.getUid();
+
+        expenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(id);
+
+        recyclerView = view.findViewById(R.id.recycle_expense);
+
+        tvExpenseTotal = view.findViewById(R.id.tv_expense_total);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        expenseDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int totalValue = 0;
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+
+                    Data data = snapshot.getValue(Data.class);
+                    totalValue += data.getAmount();
+
+                    tvExpenseTotal.setText(String.valueOf(totalValue));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerAdapter<Data, MyViewHolder> adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>(
+                Data.class,
+                R.layout.expense_recycler_data,
+                MyViewHolder.class,
+                expenseDatabase
+        ) {
+            @Override
+            protected void populateViewHolder(MyViewHolder myViewHolder, Data data, int i) {
+                myViewHolder.setType(data.getType());
+                myViewHolder.setNote(data.getNote());
+                myViewHolder.setDate(data.getDate());
+                myViewHolder.setAmount(data.getAmount());
+            }
+        };
+
+        recyclerView.setAdapter(adapter);
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        View myView;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            myView = itemView;
+        }
+
+        private void setType(String type){
+            TextView tvType = myView.findViewById(R.id.tv_type_expense);
+            tvType.setText(type);
+        }
+
+        private void setNote(String note){
+            TextView tvNote = myView.findViewById(R.id.tv_note_expense);
+            tvNote.setText(note);
+        }
+
+        private void setDate(String date){
+            TextView tvDate = myView.findViewById(R.id.tv_date_expense);
+            tvDate.setText(date);
+        }
+
+        private void setAmount(int amount){
+            TextView tvAmount = myView.findViewById(R.id.tv_amount_expense);
+            tvAmount.setText(String.valueOf(amount));
+        }
+
     }
 }

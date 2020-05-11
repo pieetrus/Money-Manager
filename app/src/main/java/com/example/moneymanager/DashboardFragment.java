@@ -47,7 +47,7 @@ public class DashboardFragment extends Fragment {
     private TextView tv_expense;
 
     // Determine if main button was clicked
-    private boolean isOpen;
+    public boolean isOpen;
 
     // Animation
     private Animation fadeOpen;
@@ -238,7 +238,7 @@ public class DashboardFragment extends Fragment {
                 String date = DateFormat.getDateInstance().format(new Date());
                 Data data = new Data(id, amount_int, type, note, date);
 
-                incomeDatabase.child(id).setValue(data);
+                expenseDatabase.child(id).setValue(data);
 
                 Toast.makeText(getActivity(), "Pomyślnie dodano!", Toast.LENGTH_SHORT).show();
 
