@@ -11,31 +11,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="5dp"
-        app:elevation="10dp">
+        app:elevation="10dp"
+        android:layout_marginTop="10dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1">
-                    
+                    android:layout_weight="1"
+                    android:gravity="center">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/income"
                         android:textAppearance="?android:textAppearanceLarge"
-                        android:textColor="@android:color/black"
-                        android:text="@string/income">
+                        android:textColor="@android:color/black">
 
                     </TextView>
 
@@ -44,15 +49,15 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/expense"
                         android:textAppearance="?android:textAppearanceLarge"
-                        android:textColor="@android:color/holo_red_dark"
-                        android:text="@string/expense">
+                        android:textColor="@android:color/holo_red_dark">
 
                     </TextView>
 
@@ -64,40 +69,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_income_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_income_amount"
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="@android:color/black"
-                        tools:text="0000.00">
-                    </TextView>
+                        tools:text="0000.00" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_expense_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_expense_amount"
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="@android:color/holo_red_dark"
-                        tools:text="0000.00">
-                    </TextView>
+                        tools:text="0000.00" />
 
                 </RelativeLayout>
 
@@ -128,11 +131,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/income"
                     android:textAppearance="?android:textAppearanceLarge"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:id="@+id/recycler_income">
+                    android:id="@+id/recycler_income"
+                    >
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -141,7 +146,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/expense"
                     android:textAppearance="?android:textAppearanceLarge"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"

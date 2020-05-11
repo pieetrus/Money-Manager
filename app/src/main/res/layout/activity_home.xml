@@ -16,7 +16,7 @@
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         app:itemTextAppearance="?android:textAppearanceSmall"
-        app:itemIconTint="@color/color_toolbar"
+        app:itemIconTint="@color/color_nav_icons"
         app:itemTextColor="@color/nav_header"
         android:layout_height="match_parent"
         android:layout_gravity="start"

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="10dp"
         android:layout_margin="5dp">
         <RelativeLayout
             android:layout_width="0dp"
@@ -21,9 +22,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="5 maja 2020"
-                android:layout_margin="5dp"
+                android:gravity="center"
                 android:textColor="@color/date_color"
-                android:textAppearance="?android:textAppearanceSmall"
+                android:textAppearance="?android:textAppearanceMedium"
                 android:textStyle="bold"
                 android:id="@+id/tv_date_expense"
                 />
@@ -67,9 +68,10 @@
                 android:layout_height="wrap_content"
                 tools:text="100000"
                 android:textColor="@color/expense_amount"
-                android:textAppearance="?android:textAppearanceSmall"
+                android:textAppearance="?android:textAppearanceMedium"
                 android:textStyle="bold"
                 android:id="@+id/tv_amount_expense"
+                android:gravity="center"
                 />
 
         </RelativeLayout>

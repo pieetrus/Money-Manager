@@ -11,14 +11,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,6 +36,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private IncomeFragment incomeFragment;
     private ExpenseFragment expenseFragment;
 
+    private FirebaseAuth firebaseAuth;
+
 
 
 
@@ -42,18 +47,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
         initialize();
 
+        String userName = firebaseAuth.getCurrentUser().getEmail();
+
+        // Toolbar configuration
         toolbar.setTitle("Money Manager");
         setSupportActionBar(toolbar);
-
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        // Left side nav view listener
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Set dashboard fragment on start
         setFragment(dashboardFragment);
 
         // Bottom navigation bar handler
@@ -63,17 +71,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 switch (item.getItemId()){
                     case R.id.dashboard:
                         setFragment(dashboardFragment);
-                        bottomNavigationView.setItemBackgroundResource(R.color.dashboard_color);
                         return true;
 
                     case R.id.income:
                         setFragment(incomeFragment);
-                        bottomNavigationView.setItemBackgroundResource(R.color.income_color);
                         return true;
 
                     case R.id.expense:
                         setFragment(expenseFragment);
-                        bottomNavigationView.setItemBackgroundResource(R.color.expense_color);
                         return true;
 
                     default:
@@ -84,6 +89,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    // Back button handler
     @Override
     public void onBackPressed() {
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -104,7 +110,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     // Provides logic which fragment should be displayed
     public void displaySelectedListener(int itemId){
-        Fragment fragment = null;
+        Fragment fragment;
 
         switch (itemId){
             case R.id.dashboard:
@@ -118,7 +124,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.expense:
                 fragment = new ExpenseFragment();
                 break;
-
+            case R.id.logout:
+                fragment = null;
+                firebaseAuth.signOut();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                break;
+            default:
+                fragment = null;
+                break;
         }
 
         if (fragment != null){
@@ -151,6 +164,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         dashboardFragment = new DashboardFragment();
         incomeFragment = new IncomeFragment();
         expenseFragment = new ExpenseFragment();
+
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
 

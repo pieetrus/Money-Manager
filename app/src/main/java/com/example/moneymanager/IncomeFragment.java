@@ -34,10 +34,9 @@ import java.util.Date;
  */
 public class IncomeFragment extends Fragment {
 
-    // Firebase database
-    private FirebaseAuth firebaseAuth;
+    private View view;
+
     private DatabaseReference incomeDatabase;
-    private FirebaseUser firebaseUser;
 
     // Recycler view
     private RecyclerView recyclerView;
@@ -49,63 +48,20 @@ public class IncomeFragment extends Fragment {
     private EditText etUpdType;
     private EditText etUpdNote;
 
-    private Button btnUpdUpdate;
-    private Button btnUpdDelete;
-
     // Data item
     private String type;
     private String note;
     private int amount;
 
-    String post_key;
-
-
-
-
+    private String post_key;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_income, container, false);
+        view = inflater.inflate(R.layout.fragment_income, container, false);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        String id = firebaseUser.getUid();
-
-        incomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(id);
-
-        recyclerView = view.findViewById(R.id.recycle_income);
-
-        tvIncomeTotal = view.findViewById(R.id.tv_income_total);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-
-        incomeDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int totalValue = 0;
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-
-                    Data data = snapshot.getValue(Data.class);
-                    totalValue += data.getAmount();
-
-                    tvIncomeTotal.setText(String.valueOf(totalValue));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
+        incomeRecyclerViewHandler();
 
         return view;
     }
@@ -169,9 +125,49 @@ public class IncomeFragment extends Fragment {
 
         private void setAmount(int amount){
             TextView tvAmount = myView.findViewById(R.id.tv_amount_income);
-            tvAmount.setText(String.valueOf(amount));
+            tvAmount.setText(amount + " zł");
         }
 
+    }
+
+    private void incomeRecyclerViewHandler(){
+
+        // Firebase database
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        String id = firebaseUser.getUid();
+
+        incomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(id);
+
+        recyclerView = view.findViewById(R.id.recycle_income);
+
+        tvIncomeTotal = view.findViewById(R.id.tv_income_total);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        incomeDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int totalValue = 0;
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+
+                    Data data = snapshot.getValue(Data.class);
+                    totalValue += data.getAmount();
+
+                    tvIncomeTotal.setText(totalValue + " zł");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void updateDataItem() {
@@ -184,8 +180,8 @@ public class IncomeFragment extends Fragment {
         etUpdNote = view.findViewById(R.id.et_upd_note);
         etUpdType = view.findViewById(R.id.et_upd_type);
 
-        btnUpdDelete = view.findViewById(R.id.btn_upd_delete);
-        btnUpdUpdate = view.findViewById(R.id.btn_upd_update);
+        Button btnUpdDelete = view.findViewById(R.id.btn_upd_delete);
+        Button btnUpdUpdate = view.findViewById(R.id.btn_upd_update);
 
         // Set data
         etUpdType.setText(type);

@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        android:padding="10dp">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -21,10 +22,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="5 maja 2020"
-                android:layout_margin="5dp"
                 android:textColor="@color/date_color"
-                android:textAppearance="?android:textAppearanceSmall"
+                android:textAppearance="?android:textAppearanceMedium"
                 android:textStyle="bold"
+                android:gravity="center"
                 android:id="@+id/tv_date_income"
                 />
 
@@ -66,8 +67,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="100000"
-                android:textColor="@color/date_color"
-                android:textAppearance="?android:textAppearanceSmall"
+                android:gravity="center"
+                android:textColor="@color/income_color"
+                android:textAppearance="?android:textAppearanceMedium"
                 android:textStyle="bold"
                 android:id="@+id/tv_amount_income"
                 />

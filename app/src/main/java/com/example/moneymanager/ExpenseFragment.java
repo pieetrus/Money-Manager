@@ -34,10 +34,7 @@ import java.util.Date;
  */
 public class ExpenseFragment extends Fragment {
 
-    // Firebase database
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference expenseDatabase;
-    private FirebaseUser firebaseUser;
+    private View view;
 
     // Recycler view
     private RecyclerView recyclerView;
@@ -49,15 +46,14 @@ public class ExpenseFragment extends Fragment {
     private EditText etUpdType;
     private EditText etUpdNote;
 
-    private Button btnUpdUpdate;
-    private Button btnUpdDelete;
-
     // Data item
     private String type;
     private String note;
     private int amount;
 
-    String post_key;
+    // Firebase
+    private DatabaseReference expenseDatabase;
+    private String post_key;
 
 
 
@@ -65,43 +61,10 @@ public class ExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_expense, container, false);
+        view = inflater.inflate(R.layout.fragment_expense, container, false);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        String id = firebaseUser.getUid();
+        expenseRecyclerViewHandler();
 
-        expenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(id);
-
-        recyclerView = view.findViewById(R.id.recycle_expense);
-
-        tvExpenseTotal = view.findViewById(R.id.tv_expense_total);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-
-        expenseDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int totalValue = 0;
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-
-                    Data data = snapshot.getValue(Data.class);
-                    totalValue += data.getAmount();
-
-                    tvExpenseTotal.setText(String.valueOf(totalValue));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         return view;
     }
 
@@ -161,9 +124,49 @@ public class ExpenseFragment extends Fragment {
 
         private void setAmount(int amount){
             TextView tvAmount = myView.findViewById(R.id.tv_amount_expense);
-            tvAmount.setText(String.valueOf(amount));
+            tvAmount.setText(amount + " zł");
         }
 
+    }
+
+    private void expenseRecyclerViewHandler(){
+
+        // Firebase database
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        String id = firebaseUser.getUid();
+
+        expenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(id);
+
+        recyclerView = view.findViewById(R.id.recycle_expense);
+
+        tvExpenseTotal = view.findViewById(R.id.tv_expense_total);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        expenseDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int totalValue = 0;
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+
+                    Data data = snapshot.getValue(Data.class);
+                    totalValue += data.getAmount();
+
+                    tvExpenseTotal.setText(totalValue + " zł");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void updateDataItem() {
@@ -176,8 +179,8 @@ public class ExpenseFragment extends Fragment {
         etUpdNote = view.findViewById(R.id.et_upd_note);
         etUpdType = view.findViewById(R.id.et_upd_type);
 
-        btnUpdDelete = view.findViewById(R.id.btn_upd_delete);
-        btnUpdUpdate = view.findViewById(R.id.btn_upd_update);
+        Button btnUpdDelete = view.findViewById(R.id.btn_upd_delete);
+        Button btnUpdUpdate = view.findViewById(R.id.btn_upd_update);
 
         // Set data
         etUpdType.setText(type);

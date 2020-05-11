@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private Button btnLogin;
-    private TextView tvForgetPassword;
     private TextView tvSignupHere;
     private ProgressDialog progressDialog;
     // Firebase
@@ -36,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initialize();
+
         // if user is already logged in - skip login activity
         if (firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
@@ -89,14 +90,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Reset password activity
-        tvForgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ResetPasswordActivity.class));
-            }
-        });
-
     }
 
     // Connect all variables to layout
@@ -104,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.et_email_login);
         etPassword = findViewById(R.id.et_password_login);
         btnLogin = findViewById(R.id.btn_login);
-        tvForgetPassword = findViewById(R.id.tv_forget_password);
         tvSignupHere = findViewById(R.id.tv_signup);
         progressDialog = new ProgressDialog(this);
         // Firebase initialization

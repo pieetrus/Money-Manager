@@ -12,12 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="5dp"
-        app:elevation="10dp">
+        app:elevation="10dp"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            >
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -44,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_expense_total"
                     android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/expense_amount"
                     tools:text="00000.00"
                     />
 
@@ -60,7 +63,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycle_expense">
+        android:id="@+id/recycle_expense"
+        android:layout_margin="10dp"
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 

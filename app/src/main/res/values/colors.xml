@@ -5,7 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="color_toolbar">#03DAC5</color>
-    <color name="nav_header">#B612A1</color>
+    <color name="nav_header">#5662BF</color>
     <color name="dashboard_color">#123BB6</color>
     <color name="income_color">#492144</color>
     <color name="expense_color">#977921</color>
@@ -13,6 +13,8 @@
     <color name="expense_fragment_background">#FFF1F3FC</color>
     <color name="date_color">#2E1717</color>
     <color name="expense_amount">#9A0693</color>
+    <color name="color_nav_icons">#000000</color>
+    <color name="button_color">#AA0707</color>
 
 
 
