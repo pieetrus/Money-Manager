@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/expense"
                         android:textAppearance="?android:textAppearanceLarge"
-                        android:textColor="@android:color/holo_red_dark">
+                        android:textColor="@android:color/black">
 
                     </TextView>
 
@@ -83,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:textAppearanceLarge"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/income_color"
                         tools:text="0000.00" />
 
                 </RelativeLayout>
@@ -99,13 +99,38 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:textAppearanceLarge"
-                        android:textColor="@android:color/holo_red_dark"
+                        android:textColor="@color/expense_color"
                         tools:text="0000.00" />
 
                 </RelativeLayout>
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:textAppearanceLarge"
+                        android:textColor="@android:color/black"
+                        tools:text="0000.00" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
 
@@ -188,11 +213,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_ft_expense"
                 android:layout_gravity="bottom|end"
-                app:backgroundTint="@color/color_toolbar"
+                app:backgroundTint="@color/button_color"
                 app:elevation="6dp"
                 app:fabSize="mini"
-                android:visibility="invisible"
                 app:pressedTranslationZ="12dp"
+                android:visibility="invisible"
+                app:maxImageSize="30dp"
                 android:src="@drawable/expense"
                 />
         </LinearLayout>
@@ -224,11 +250,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_ft_income"
                 android:layout_gravity="bottom|end"
-                app:backgroundTint="@color/colorAccent"
+                app:backgroundTint="@android:color/holo_green_dark"
                 app:elevation="6dp"
                 app:fabSize="mini"
-                android:visibility="invisible"
                 app:pressedTranslationZ="12dp"
+                app:maxImageSize="55dp"
+                android:visibility="invisible"
                 android:src="@drawable/income"
                 />
 
@@ -241,10 +268,12 @@
             android:layout_marginBottom="16dp"
             android:layout_marginRight="20dp"
             android:layout_gravity="bottom|end"
-            app:backgroundTint="@color/nav_header"
+            app:backgroundTint="@color/button_color"
             app:fabSize="normal"
             android:src="@drawable/income"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginEnd="20dp"
+            app:maxImageSize="75dp"
+            />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_expense_total"
                     android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@color/expense_amount"
+                    android:textColor="@color/expense_color"
                     tools:text="00000.00"
                     />
 

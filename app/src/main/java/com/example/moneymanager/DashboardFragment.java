@@ -50,7 +50,7 @@ public class DashboardFragment extends Fragment {
     private FloatingActionButton btn_expense;
 
     // Floating button textviews
-    private TextView tv_main;
+    private TextView tv_total;
     private TextView tv_income;
     private TextView tv_expense;
 
@@ -76,6 +76,8 @@ public class DashboardFragment extends Fragment {
     // Recycler view
     private RecyclerView recyclerIncome;
     private RecyclerView recyclerExpense;
+
+    private int totalCash;
 
 
     @Override
@@ -205,12 +207,15 @@ public class DashboardFragment extends Fragment {
                     Data data = snapshot.getValue(Data.class);
                     sum += data.getAmount();
                 }
+                totalCash += sum;
+                tv_total.setText(totalCash + " zł");
                 tv_totalIncome.setText(sum + " zł");
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                totalCash = 0;
             }
         });
 
@@ -225,12 +230,14 @@ public class DashboardFragment extends Fragment {
                     Data data = snapshot.getValue(Data.class);
                     sum += data.getAmount();
                 }
+                totalCash -= sum;
+                tv_total.setText(totalCash + " zł");
                 tv_totalExpense.setText(sum + " zł");
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                totalCash = 0;
             }
         });
     }
@@ -424,6 +431,7 @@ public class DashboardFragment extends Fragment {
         btn_expense = view.findViewById(R.id.btn_ft_expense);
         tv_income = view.findViewById(R.id.tv_ft_income);
         tv_expense = view.findViewById(R.id.tv_ft_expense);
+        tv_total = view.findViewById(R.id.tv_total_amount);
         fadeOpen = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_open);
         fadeClose = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_close);
         tv_totalIncome = view.findViewById(R.id.tv_income_amount);
@@ -439,7 +447,8 @@ public class DashboardFragment extends Fragment {
         incomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(userId);
         expenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(userId);
 
-
+        totalCash = 0;
+        isOpen = false;
     }
 
 }
