@@ -78,6 +78,8 @@ public class DashboardFragment extends Fragment {
     private RecyclerView recyclerExpense;
 
     private int totalCash;
+    private int totalIncome;
+    private int totalExpense;
 
 
     @Override
@@ -207,9 +209,11 @@ public class DashboardFragment extends Fragment {
                     Data data = snapshot.getValue(Data.class);
                     sum += data.getAmount();
                 }
-                totalCash += sum;
+
+                totalIncome = sum;
+                totalCash = totalIncome - totalExpense;
                 tv_total.setText(totalCash + " zł");
-                tv_totalIncome.setText(sum + " zł");
+                tv_totalIncome.setText(totalIncome + " zł");
 
             }
 
@@ -230,9 +234,10 @@ public class DashboardFragment extends Fragment {
                     Data data = snapshot.getValue(Data.class);
                     sum += data.getAmount();
                 }
-                totalCash -= sum;
+                totalExpense = sum;
+                totalCash = totalIncome - totalExpense;
                 tv_total.setText(totalCash + " zł");
-                tv_totalExpense.setText(sum + " zł");
+                tv_totalExpense.setText(totalExpense + " zł");
             }
 
             @Override
